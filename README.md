@@ -1,7 +1,7 @@
-📝 Backend API for Blog Posts
+## 📝 Backend API for Blog Posts
 This is a Node.js + Express + MongoDB backend that provides authentication and CRUD operations for blog posts.
 
-🚀 Features
+## 🚀 Features
 
   * User Authentication
         - Register new users
