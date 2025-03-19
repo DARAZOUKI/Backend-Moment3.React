@@ -27,9 +27,14 @@ router.post("/", authenticate, async (req, res) => {
     await post.save();
     res.status(201).json(post);
   } catch (error) {
+    if (error.name === "ValidationError") {
+      const errors = Object.values(error.errors).map((err) => err.message);
+      return res.status(400).json({ message: "Validation failed", errors });
+    }
     res.status(500).json({ message: "Server error" });
   }
 });
+
 
 // Get all posts
 router.get("/", async (req, res) => {

@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-  "build": "echo 'No build step needed'"
+    "build": "echo 'No build step needed'"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "backend-moment3.react": "file:",
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",

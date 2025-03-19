@@ -108,21 +108,21 @@ const Post = mongoose.model("Post", postSchema);
 
 // Create a New Post
 app.post("/api/posts", verifyToken, async (req, res) => {
-    const { title, content } = req.body;
-  
-    // Validate input
-    if (!title || !content) {
-      return res.status(400).json({ message: "Title and content are required" });
+  const { title, content } = req.body;
+
+  try {
+    const post = new Post({ title, content, author: req.user._id });
+    await post.save();
+    res.status(201).json(post);
+  } catch (error) {
+    if (error.name === "ValidationError") {
+      const errors = Object.values(error.errors).map(err => err.message);
+      return res.status(400).json({ message: "Validation failed", errors });
     }
-  
-    try {
-      const post = new Post({ title, content, author: req.user._id });
-      await post.save();
-      res.status(201).json(post);
-    } catch (error) {
-      res.status(500).json({ message: "Server error", error: error.message });
-    }
-  });
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+});
+
   
 
 // Get All Posts
